@@ -35,6 +35,16 @@ class AuthorController extends Controller
      */
     public function store(Request $request)
     {
+        $rules = [
+            
+            'name' => 'required|regex:/^([a-zA-Z]+)(\s[a-zA-Z]+)*$/|max:100',
+            'surname' => 'required|regex:/^([a-zA-Z]+)(\s[a-zA-Z]+)*$/|max:150',
+           
+        ];
+
+        $this->validate($request, $rules);
+
+
         $author = new Author();
         $author->fill($request->all());
         

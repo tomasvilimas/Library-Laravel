@@ -42,7 +42,7 @@
             <td>{{ $book->title }}</td>
             <td>{{ $book->pages }}</td>
             <td>{{ $book->isbn }}</td>
-            <td>{{ $book->description }}</td>
+            <td>{!! $book->description !!}</td>
             <td>{{ $book->author->name }}</td>
             <td>
                 @if (auth()->check())

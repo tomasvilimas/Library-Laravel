@@ -36,6 +36,18 @@ class BookController extends Controller{
      */
     public function store(Request $request)
     {
+
+        $rules = [
+            
+            'title' => 'required|regex:/^([a-zA-Z]+)(\s[a-zA-Z]+)*$/|max:100',
+            'pages' => 'required|regex:/^([a-zA-Z]+)(\s[a-zA-Z]+)*$/|max:150',
+            'isbn' => 'required',
+            'description' => 'required',
+            'author_id' => 'required'
+        ];
+
+        $this->validate($request, $rules);
+
         $book = new Book();
      
         $book->fill($request->all());
@@ -65,6 +77,9 @@ class BookController extends Controller{
      */
     public function edit(Book $book)
     {
+
+        
+
         $authors = \App\Models\Author::orderBy('name')->get();
         return view('books.edit', ['book' => $book, 'authors' => $authors]);
     }

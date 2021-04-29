@@ -22,7 +22,8 @@
                         </div>
                         <div class="form-group">
                             <label for="">Aprašymas</label>
-                            <textarea type="text" name="description" rows=10 cols=100
+                            
+                            <textarea id="mce" name="description" rows=10 cols=100 class="form-control" ></textarea>
                                 class="form-control">{{ $book->description }}</textarea>
                         </div>
                         <div class="form-group">
