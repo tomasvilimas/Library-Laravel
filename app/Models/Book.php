@@ -9,7 +9,8 @@ class Book extends Model
 {
     use HasFactory;
     public $fillable = ['title', 'pages', 'isbn', 'description', 'author_id',];
-    public function Author(){
-    return $this->belongsTo('App\Models\Author');
+    public function Author()
+    {
+        return $this->belongsTo('App\Models\Author');
     }
 }

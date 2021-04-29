@@ -38,14 +38,14 @@
                     <!-- Left Side Of Navbar -->
                     <ul class="navbar-nav mr-auto">
                         @auth
-                        <li class="nav-item">
-                        <a href="{{ route('author.index') }}" class="nav-link">Autoriai</a>
-                        </li>
-                        <li class="nav-item">
-                        <a href="{{ route('book.index') }}" class="nav-link">Knygos</a>
-                        </li>
-                       
-                        </ul>@endauth
+                            <li class="nav-item">
+                                <a href="{{ route('author.index') }}" class="nav-link">Autoriai</a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="{{ route('book.index') }}" class="nav-link">Knygos</a>
+                            </li>
+
+                    </ul>@endauth
 
                     </ul>
 
@@ -73,7 +73,7 @@
 
                                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
                                     <a class="dropdown-item" href="{{ route('logout') }}" onclick="event.preventDefault();
-                                                         document.getElementById('logout-form').submit();">
+                                    document.getElementById('logout-form').submit();">
                                         {{ __('Logout') }}
                                     </a>
 
@@ -96,9 +96,10 @@
     <script src="https://cdn.tiny.cloud/1/no-api-key/tinymce/5/tinymce.min.js" referrerpolicy="origin"></script>
     <script>
         tinymce.init({
-        selector: '#mce'
+            selector: '#mce'
         });
-        </script>
+
+    </script>
 </body>
 
 </html>

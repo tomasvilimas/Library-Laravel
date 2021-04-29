@@ -12,9 +12,15 @@ class AuthorController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        return view('authors.index', ['authors' => Author::orderBy('name')->get()]);
+
+        if (isset($request->id) && $request->id !== 0)
+            $Authors = \App\Models\Author::where('id', $request->id)->orderBy('name')->get();
+        else
+            $Authors = \App\Models\Author::orderBy('name')->get();
+        $Books = \App\Models\Book::orderBy('title')->get();
+        return view('authors.index', ['authors' => $Authors, 'books' => $Books]);
     }
 
     /**
@@ -36,10 +42,10 @@ class AuthorController extends Controller
     public function store(Request $request)
     {
         $rules = [
-            
+
             'name' => 'required|regex:/^([a-zA-Z]+)(\s[a-zA-Z]+)*$/|max:100',
             'surname' => 'required|regex:/^([a-zA-Z]+)(\s[a-zA-Z]+)*$/|max:150',
-           
+
         ];
 
         $this->validate($request, $rules);
@@ -47,11 +53,11 @@ class AuthorController extends Controller
 
         $author = new Author();
         $author->fill($request->all());
-        
-        
-           $author->save();
-           return ($author->save() == 1) ?
-           redirect('/author')->with('status_success', 'Autorius sukurtas!') :
+
+
+        $author->save();
+        return ($author->save() == 1) ?
+            redirect('/author')->with('status_success', 'Autorius sukurtas!') :
             redirect('/author')->with('status_error', 'Autorius nesukurtas!');
     }
 
@@ -88,11 +94,10 @@ class AuthorController extends Controller
     {
         $author->fill($request->all());
         $author->save();
-       
+
         return ($author->save() !== 1) ?
-        redirect('/author/' )->with('status_success', 'Autorius atnaujintas!') :
-        redirect('/author/' )->with('status_error', 'Autorius nebuvo atnaujintas!');
- 
+            redirect('/author/')->with('status_success', 'Autorius atnaujintas!') :
+            redirect('/author/')->with('status_error', 'Autorius nebuvo atnaujintas!');
     }
 
     /**
@@ -105,6 +110,5 @@ class AuthorController extends Controller
     {
         $author->delete();
         return redirect('/author')->with('status_success', 'Autorius ištrintas!');
-
     }
 }

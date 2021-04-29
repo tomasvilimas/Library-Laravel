@@ -2,13 +2,13 @@
 @section('content')
     <div class="container">
         @if ($errors->any())
-        <div class="alert alert-danger">
-            <ul>
-                @foreach ($errors->all() as $error)
-                    <li>{{ $error }}</li>
-                @endforeach
-            </ul>
-        </div>
+            <div class="alert alert-danger">
+                <ul>
+                    @foreach ($errors->all() as $error)
+                        <li>{{ $error }}</li>
+                    @endforeach
+                </ul>
+            </div>
         @endif
         <div class="row justify-content-center">
             <div class="col-md-8">
@@ -32,9 +32,9 @@
                             <div class="form-group">
                                 <label>Aprašymas: </label>
                                 <textarea id="mce" name="description" rows=10 cols=100 class="form-control"></textarea>
-                                
+
                             </div>
-                            
+
                             <div class="form-group">
                                 <label>Autorius: </label>
                                 <select name="author_id" id="" class="form-control" required>
@@ -51,5 +51,5 @@
             </div>
         </div>
     </div>
-    
+
 @endsection

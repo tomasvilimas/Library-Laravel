@@ -5,17 +5,20 @@ namespace App\Http\Controllers;
 use App\Models\Book;
 use Illuminate\Http\Request;
 
-class BookController extends Controller{
-   
-    public function index(Request $request){
-    
-        if(isset($request->author_id) && $request->author_id !== 0)
-        $Books = \App\Models\Book::where('author_id', $request->author_id)->orderBy('title')->get();
-    else
-        $Books = \App\Models\Book::orderBy('title')->get();
-    $Authors = \App\Models\Author::orderBy('name')->get();
-    return view('books.index', ['books' => $Books, 'authors' => $Authors]);}
-    
+class BookController extends Controller
+{
+
+    public function index(Request $request)
+    {
+
+        if (isset($request->author_id) && $request->author_id !== 0)
+            $Books = \App\Models\Book::where('author_id', $request->author_id)->orderBy('title')->get();
+        else
+            $Books = \App\Models\Book::orderBy('title')->get();
+        $Authors = \App\Models\Author::orderBy('name')->get();
+        return view('books.index', ['books' => $Books, 'authors' => $Authors]);
+    }
+
 
     /**
      * Show the form for creating a new resource.
@@ -38,9 +41,9 @@ class BookController extends Controller{
     {
 
         $rules = [
-            
+
             'title' => 'required|regex:/^([a-zA-Z]+)(\s[a-zA-Z]+)*$/|max:100',
-            'pages' => 'required|regex:/^([a-zA-Z]+)(\s[a-zA-Z]+)*$/|max:150',
+            'pages' => 'required',
             'isbn' => 'required',
             'description' => 'required',
             'author_id' => 'required'
@@ -49,13 +52,13 @@ class BookController extends Controller{
         $this->validate($request, $rules);
 
         $book = new Book();
-     
+
         $book->fill($request->all());
         $book->save();
-       
+
         return ($book->save() == 1) ?
-        redirect('/book')->with('status_success', 'Knyga sukurta!') :
-         redirect('/book')->with('status_error', 'Knyga sukurta!');
+            redirect('/book')->with('status_success', 'Knyga sukurta!') :
+            redirect('/book')->with('status_error', 'Knyga sukurta!');
     }
 
     /**
@@ -78,7 +81,7 @@ class BookController extends Controller{
     public function edit(Book $book)
     {
 
-        
+
 
         $authors = \App\Models\Author::orderBy('name')->get();
         return view('books.edit', ['book' => $book, 'authors' => $authors]);
@@ -93,12 +96,24 @@ class BookController extends Controller{
      */
     public function update(Request $request, Book $book)
     {
+
+        $rules = [
+
+            'title' => 'required|regex:/^([a-zA-Z]+)(\s[a-zA-Z]+)*$/|max:100',
+            'pages' => 'required',
+            'isbn' => 'required',
+            'description' => 'required',
+            'author_id' => 'required'
+        ];
+
+        $this->validate($request, $rules);
+
         $book->fill($request->all());
         $book->save();
-        
+
         return ($book->save() !== 1) ?
-        redirect('/book/' )->with('status_success', 'Knyga atnaujinta!') :
-        redirect('/book/' )->with('status_error', 'Knyga nebuvo atnaujinta!');
+            redirect('/book/')->with('status_success', 'Knyga atnaujinta!') :
+            redirect('/book/')->with('status_error', 'Knyga nebuvo atnaujinta!');
     }
 
     /**

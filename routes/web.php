@@ -19,7 +19,7 @@ Auth::routes(['register' => false]);
 
 
 
-Route::middleware(['auth'])->group(function(){
-Route::resource('author', App\Http\Controllers\AuthorController::class);
-Route::resource('book', App\Http\Controllers\BookController::class);
+Route::middleware(['auth'])->group(function () {
+    Route::resource('author', App\Http\Controllers\AuthorController::class);
+    Route::resource('book', App\Http\Controllers\BookController::class);
 });
